@@ -1,7 +1,7 @@
 import { Router } from "express";
 import verificarToken from "../middlewares/verificar-token";
 import verificarPerfilLocadoraMotos from "../middlewares/verificar-perfil-locadora-motos";
-import ServiçosLocadoraMotos from "../serviços/serviço-locadora-motos";
+import ServiçosLocadoraMotos from "../serviços/serviços-locadora-motos";
 
 const RotasLocadoraMotos = Router();
 export default RotasLocadoraMotos;

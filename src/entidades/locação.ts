@@ -1,7 +1,7 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import OrganizadorEventosMotos from "./OrganizadorEventosMotos";
+import OrganizadorEventosMotos from "./organizadorEventosMotos";
 import Moto from "./moto";
-export enum Status { PENDENTE= "Pendente", CONFIRMADA = "Confirmada", ATIVA = "Ativa", CONCLUÍDA = "Concluída", CANCELADA = "Cancelada" };
+export enum Status { PENDENTE = "Pendente", CONFIRMADA = "Confirmada", ATIVA = "Ativa", CONCLUÍDA = "Concluída", CANCELADA = "Cancelada" };
 
 @Entity()
 export default class Locação extends BaseEntity {

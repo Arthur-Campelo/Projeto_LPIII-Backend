@@ -4,9 +4,7 @@ import md5 from "md5";
 import { sign } from "jsonwebtoken";
 import Usuário, { Perfil } from "../entidades/usuário";
 import LocadoraMotos from "../entidades/locadoraMotos";
-import OrganicadorEventosMotos from "../entidades/OrganizadorEventosMotos";
-
-LOCADORA_MOTOS = "LocadoraMotos", ORGANIZADOR_EVENTOS_MOTOS
+import OrganicadorEventosMotos from "../entidades/organizadorEventosMotos";
 
 dotenv.config();
 const SALT = 10;

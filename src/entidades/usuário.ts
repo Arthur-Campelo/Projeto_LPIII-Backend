@@ -1,6 +1,6 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, OneToOne, PrimaryColumn } from "typeorm";
 import LocadoraMotos from "./locadoraMotos";
-import OrganizadorEventosMotos from "./OrganizadorEventosMotos";
+import OrganizadorEventosMotos from "./organizadorEventosMotos";
 
 export enum Perfil { LOCADORA_MOTOS = "LocadoraMotos", ORGANIZADOR_EVENTOS_MOTOS = "OrganizadorEventosMotos" };
 export enum Status { PENDENTE = "pendente", ATIVO = "ativo" };
