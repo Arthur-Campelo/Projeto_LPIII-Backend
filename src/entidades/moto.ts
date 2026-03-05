@@ -1,5 +1,5 @@
 import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import LocadoraMotos from "./locadoraMoto";
+import LocadoraMotos from "./locadoraMotos";
 import Locação from "./locação";
 export enum Cor {
     AMARELO = "yellow", AZUL = "blue", CINZA_ESCURO = "bluegray", LARANJA = "orange", ROSA = "pink", ROXO = "purple", VERDE = "green",
