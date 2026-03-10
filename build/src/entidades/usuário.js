@@ -33,8 +33,8 @@ var locadoraMotos_1 = __importDefault(require("./locadoraMotos"));
 var organizadorEventosMotos_1 = __importDefault(require("./organizadorEventosMotos"));
 var Perfil;
 (function (Perfil) {
-    Perfil["LOCADORA_MOTOS"] = "LocadoraMotos";
-    Perfil["ORGANIZADOR_EVENTOS_MOTOS"] = "OrganizadorEventosMotos";
+    Perfil["LOCADORA_MOTOS"] = "locadoraMotos";
+    Perfil["ORGANIZADOR_EVENTOS_MOTOS"] = "organizadorEventosMotos";
 })(Perfil || (exports.Perfil = Perfil = {}));
 ;
 var Status;

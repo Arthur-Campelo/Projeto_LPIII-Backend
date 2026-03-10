@@ -2,7 +2,7 @@ import { BaseEntity, Column, CreateDateColumn, Entity, OneToOne, PrimaryColumn }
 import LocadoraMotos from "./locadoraMotos";
 import OrganizadorEventosMotos from "./organizadorEventosMotos";
 
-export enum Perfil { LOCADORA_MOTOS = "LocadoraMotos", ORGANIZADOR_EVENTOS_MOTOS = "OrganizadorEventosMotos" };
+export enum Perfil { LOCADORA_MOTOS = "locadoraMotos", ORGANIZADOR_EVENTOS_MOTOS = "organizadorEventosMotos" };
 export enum Status { PENDENTE = "pendente", ATIVO = "ativo" };
 export enum Cores {
     AMARELO = "yellow", ANIL = "indigo", AZUL = "blue", AZUL_PISCINA = "cyan",
