@@ -4,7 +4,9 @@ import verificarPerfilLocadoraMotos from "../middlewares/verificar-perfil-locado
 import ServiçosLocadoraMotos from "../serviços/serviços-locadora-motos";
 
 const RotasLocadoraMotos = Router();
-export default RotasLocadoraMotos;
 
 RotasLocadoraMotos.post("/", ServiçosLocadoraMotos.cadastrarLocadoraMotos);
+RotasLocadoraMotos.patch("/", verificarToken, verificarPerfilLocadoraMotos,ServiçosLocadoraMotos.atualizarLocadoraMotos);
 RotasLocadoraMotos.get("/:cnpj", verificarToken, verificarPerfilLocadoraMotos, ServiçosLocadoraMotos.buscarLocadoraMotos);
+
+export default RotasLocadoraMotos;

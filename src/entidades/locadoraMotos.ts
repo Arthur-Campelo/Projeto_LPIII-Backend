@@ -7,7 +7,7 @@ export enum Classificação { NÃO_CLASSIFICADO = "não_classificado", REGULAR =
 @Entity()
 export default class LocadoraMotos extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id: number;
+    id!: number;
     @Column({ type: "enum", enum: Classificação })
     classificação: Classificação;
     @Column()

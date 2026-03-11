@@ -6,7 +6,7 @@ export enum Status { PENDENTE = "Pendente", CONFIRMADA = "Confirmada", ATIVA = "
 @Entity()
 export default class Locação extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id: number;
+    id!: number;
     @Column({ type: "enum", enum: Status })
     status: Status;
     @Column()

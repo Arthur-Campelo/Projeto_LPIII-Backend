@@ -5,10 +5,13 @@ import { sign } from "jsonwebtoken";
 import Usuário, { Perfil } from "../entidades/usuário";
 import LocadoraMotos from "../entidades/locadoraMotos";
 import OrganicadorEventosMotos from "../entidades/organizadorEventosMotos";
+import { getManager } from "typeorm";
+import { error } from "node:console";
+
 
 dotenv.config();
 const SALT = 10;
-const SENHA_JWT = process.env.SENHA_JWT;
+const SENHA_JWT = process.env.SENHA_JWT as string;
 
 export default class ServiçosUsuário {
 
@@ -93,5 +96,88 @@ export default class ServiçosUsuário {
         } catch (error) {
             throw new Error("Erro BD: cadastrarUsuário");
         };
+    };
+
+    static async alterarUsuário(request, response) {
+        try {
+
+            const { cnpj, senha, questão, resposta, cor_tema, email } = request.body;
+            const cnpj_encriptado = md5(cnpj);
+            let senha_encriptada: string, resposta_encriptada: string;
+            let token: string | undefined;
+            const usuário = await Usuário.findOne(cnpj_encriptado);
+
+            if (!usuário) { //checa usuário para poder acessar sem risco
+                throw (Error)
+            }
+            if (email) {
+                usuário.email = email;
+                token = sign({ perfil: usuário.perfil, email }, SENHA_JWT, { subject: usuário.nome, expiresIn: "1d" });
+            }
+            if (cor_tema) usuário.cor_tema = cor_tema;
+            if (senha) {
+                senha_encriptada = await bcrypt.hash(senha, SALT);
+                usuário.senha = senha_encriptada;
+            }
+            if (resposta) {
+                resposta_encriptada = await bcrypt.hash(resposta, SALT);
+                usuário.questão = questão;
+                usuário.resposta = resposta_encriptada;
+            }
+
+            await Usuário.save(usuário);
+            const usuário_info = {
+                nome: usuário.nome, perfil: usuário.perfil, email: usuário.email,
+                questão: usuário.questão, status: usuário.status, cor_tema: usuário.cor_tema, token: token || null
+            };
+            //if (token) usuário_info.token = token; removido por falta de necessidade
+            return response.json(usuário_info);
+
+        } catch (error) { return response.status(500).json({ erro: "Erro BD: alterarUsuário" }); }
+    };
+
+    static async removerUsuário(request, response) {
+        try {
+            const cnpj_encriptado = md5(request.params.cnpj);
+            const entityManager = getManager();
+
+            await entityManager.transaction(async (transactionManager) => {
+                const usuário = await transactionManager.findOne(Usuário, cnpj_encriptado);
+                await transactionManager.remove(usuário);
+                return response.json();
+            });
+        } catch (error) {
+            return response.status(500).json({ erro: "Erro BD: removerUsuário" });
+        }
+    };
+
+    static async buscarQuestãoSegurança(request, response) {
+        try {
+            const cnpj_encriptado = md5(request.params.cnpj);
+            const usuário = await Usuário.findOne(cnpj_encriptado);
+
+            if (usuário) return response.json({ questão: usuário.questão });
+            else return response.status(404).json({ mensagem: "CNPJ não cadastrado" });
+        } catch (error) {
+            return response.status(500).json({ erro: "Erro BD : buscarQuestãoSegurança" });
+        }
+    };
+
+    static async verificarRespostaCorreta(request, response) {
+        try {
+            const { cnpj, resposta } = request.body;
+            const cnpj_encriptado = md5(cnpj);
+
+            const usuário = await Usuário.findOne(cnpj_encriptado);
+            if (!usuário) return response.status(404).json({ mensagem: "CNPJ não encontrado" });
+
+            const resposta_correta = await bcrypt.compare(resposta, usuário.resposta);
+            if (!resposta_correta) return response.status(401).json({ mensagem: "Resposta incorreta." });
+
+            const token = sign({ perfil: usuário.perfil, email: usuário.email }, SENHA_JWT, { subject: usuário.nome, expiresIn: "1h" });
+            return response.json({ token });
+        } catch (error) {
+            return response.status(500).json({ erro: "Erro BD: verificarRespostaCorreta" });
+        }
     };
 };

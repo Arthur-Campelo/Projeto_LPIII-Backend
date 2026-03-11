@@ -39,4 +39,15 @@ export default class ServiçosLocadoraMotos {
             });
         } catch (error) { return response.status(500).json({ erro: "Erro BD : buscarLocadoraMotos" }); }
     };
+
+    static async atualizarLocadoraMotos(request, response) {
+        try {
+            const { cnpj, classificação, qnt_disponíveis } = request.body;
+            const cnpj_encriptado = md5(cnpj);
+
+            await LocadoraMotos.update({ usuário: { cnpj: cnpj_encriptado } }, { classificação, qnt_disponíveis });
+            return response.json();
+        } catch (error) { return response.status(500).json({ erro: "Erro BD : atualizarLocadoraMotos" }); }
+    };
+
 };
