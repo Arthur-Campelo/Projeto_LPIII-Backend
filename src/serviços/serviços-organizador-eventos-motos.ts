@@ -32,7 +32,7 @@ export default class ServiçosOrganizadorEventosMotos {
             await OrganizadorEventosMotos.update({ usuário: { cnpj: cnpj_encriptado } }, { cidade, tipo, telefone });
             return response.json();
 
-        } catch (error) { return response.status(500).json({ erro: "Erro BD : atualizarAluno" }); }
+        } catch (error) { return response.status(500).json({ erro: "Erro BD : atualizarOrganizadorEventosMotos" }); }
     };
 
     static async buscarOrganizadorEventosMotos(request, response) {
@@ -43,13 +43,13 @@ export default class ServiçosOrganizadorEventosMotos {
                 relations: ["usuário"]
             });
 
-            if (!organizadorEventosMotos) return response.status(404).json({ erro: "Aluno não encontrado." });
+            if (!organizadorEventosMotos) return response.status(404).json({ erro: "Organizador não encontrado." });
 
             return response.json({
                 nome: organizadorEventosMotos.usuário.nome, email: organizadorEventosMotos.usuário.email,
                 cidade: organizadorEventosMotos.cidade, tipo: organizadorEventosMotos.tipo,
                 telefone: organizadorEventosMotos.telefone
             });
-        } catch (error) { return response.status(500).json({ erro: "Erro BD : buscarAluno" }); }
+        } catch (error) { return response.status(500).json({ erro: "Erro BD : buscarOrganizadorEventosMotos" }); }
     };
 }
