@@ -2,7 +2,7 @@ import { BaseEntity, Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGen
     "typeorm";
 import Usuário from "./usuário";
 import Motos from "./moto";
-export enum Classificação { NÃO_CLASSIFICADO = "não_classificado", REGULAR = "regular", BOA = "boa", EXCELENTE = "excelente" };
+export enum Classificação { NÃO_CLASSIFICADO = "não_classificado", BAIXO = "baixo", MÉDIO = "médio", ALTO = "alto" };
 
 @Entity()
 export default class LocadoraMotos extends BaseEntity {

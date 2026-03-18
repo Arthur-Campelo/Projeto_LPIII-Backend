@@ -130,7 +130,6 @@ export default class ServiçosUsuário {
                 nome: usuário.nome, perfil: usuário.perfil, email: usuário.email,
                 questão: usuário.questão, status: usuário.status, cor_tema: usuário.cor_tema, token: token || null
             };
-            //if (token) usuário_info.token = token; removido por falta de necessidade
             return response.json(usuário_info);
 
         } catch (error) { return response.status(500).json({ erro: "Erro BD: alterarUsuário" }); }
